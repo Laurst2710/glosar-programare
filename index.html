@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="ro"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glosar programare (7–14 ani)</title>
+<style>
+:root{
+ --bg:#f7fafc;--card:#ffffff;--ink:#1a202c;--muted:#718096;
+ --blue:#63b3ed;--pink:#fbb6ce;--green:#9ae6b4;--yellow:#faf089;--orange:#fbd38d;
+}
+body{font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);margin:0}
+h1{text-align:center;padding:20px 10px;margin:0;font-size:26px;color:#2d3748}
+.search{display:flex;justify-content:center;margin:0 0 20px}
+.search input{width:90%;max-width:600px;padding:12px 14px;font-size:16px;border:2px solid #cbd5e0;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;max-width:1200px;margin:0 auto;padding:0 16px 40px}
+.card{border-radius:14px;padding:16px;color:#1a202c;box-shadow:0 2px 4px rgba(0,0,0,.08);transition:transform .1s}
+.card:hover{transform:scale(1.03)}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:0;font-size:14px;color:var(--muted)}
+</style></head><body>
+<h1>Glosar programare (7–14 ani)</h1>
+<div class="search"><input id="q" type="search" placeholder="Caută un termen..."></div>
+<div id="grid" class="grid"></div>
+<script>
+(function(){
+const terms=[
+["Algoritm","Pași logici și clari pentru rezolvarea unei probleme."],
+["Abstractizare","Alegerea doar a detaliilor importante ale unei idei sau probleme."],
+["Buclă","Instrucțiune care repetă o acțiune de mai multe ori."],
+["Condiție","Verificare care decide dacă un bloc de cod se execută."],
+["Variabilă","O cutiuță ce stochează valori ce pot fi schimbate."],
+["Constanta","O valoare care nu se modifică în timpul execuției programului."],
+["Funcție","Grup de instrucțiuni care realizează o acțiune clară."],
+["Eveniment","O acțiune care declanșează o reacție în program."],
+["Listă","Colecție de elemente stocate într-o ordine."],
+["Tablou","Structură de date cu mai multe elemente accesibile prin poziție."],
+["Operator","Simbol care efectuează o operație (ex: +, -, *, /)."],
+["Bug","Eroare în program care trebuie reparată."],
+["Debugging","Procesul de căutare și rezolvare a erorilor."],
+["Program","Un set de instrucțiuni pe care calculatorul le execută."],
+["Cod sursă","Textul scris de programator pentru a crea un program."],
+["Compilator","Program care transformă codul sursă în cod executabil."],
+["Editor de cod","Aplicație unde scriem și modificăm programe."],
+["Structură de date","Modul în care sunt organizate și stocate datele."],
+["Intrare","Informația primită de calculator de la utilizator."],
+["Ieșire","Rezultatul produs de calculator."],
+["Algoritm grafic","Reprezentarea vizuală a pașilor unui algoritm (ex: Flowgorithm)."],
+["Bloc de cod","Set de instrucțiuni grupate pentru o sarcină."],
+["Comentariu","Text în cod care explică, dar nu se execută."],
+["Consolă","Fereastră unde apar mesaje și rezultate ale programului."],
+["Scratch","Limbaj vizual de programare pentru copii."],
+["Micro:bit","Placă mică de dezvoltare folosită pentru proiecte educaționale."],
+["Python","Limbaj de programare simplu și ușor de citit."],
+["C++","Limbaj de programare rapid și folosit la aplicații complexe."],
+["MakeCode","Platformă online pentru programarea dispozitivelor precum Micro:bit."],
+["Flowgorithm","Aplicație pentru desenarea algoritmilor sub formă de diagrame."],
+["Decompunere","Împărțirea unei probleme mari în părți mai mici."],
+["Recunoaștere tipare","Identificarea elementelor repetitive sau comune."],
+["Date","Informații cu care lucrează programele."],
+["Tastatură","Dispozitiv prin care introducem date în calculator."],
+["Ecran","Locul unde vedem rezultatul programului."],
+["Senzor","Componentă care detectează schimbări (lumina, temperatura)."],
+["LED","Diodă care luminează când trece curentul electric."],
+["Buclă infinită","Repetare continuă fără oprire."],
+["Secvență","Ordinea logică a pașilor într-un algoritm."],
+["RAM","Memorie temporară a calculatorului."],
+["Hard disk","Locul unde sunt salvate fișierele permanent."],
+["Server","Calculator care furnizează servicii altor calculatoare."],
+["Client","Calculator care primește servicii de la un server."],
+["Internet","Rețea mondială care conectează calculatoare."],
+["Site web","Pagină de informații accesibilă pe internet."],
+["Browser","Aplicație folosită pentru a vizualiza site-uri."],
+["Cloud","Spațiu de stocare pe internet."],
+["Fișier","Colecție de date salvate sub un nume."],
+["Folder","Loc pentru gruparea fișierelor."],
+["Software","Totalitatea programelor dintr-un calculator."],
+["Hardware","Părțile fizice ale calculatorului."],
+["Robot","Dispozitiv programabil care execută sarcini automat."],
+["Simulare","Reproducerea unui proces real în calculator."],
+["Joc video","Program interactiv creat pentru distracție."],
+["Pixel","Cel mai mic punct al unei imagini."],
+["Rezoluție","Numărul de pixeli ai unei imagini."],
+["Coordonate","Valorile X și Y ce definesc o poziție pe ecran."],
+["Vector","Tablou unidimensional de date numerice."],
+["Matrice","Tablou bidimensional (rânduri și coloane)."],
+["Operator logic","Simbol pentru decizii (AND, OR, NOT)."],
+["Operator aritmetic","Simbol pentru calcule (ex: +, -, *)."],
+["Operator relațional","Simbol pentru comparații (>, <, ==)."],
+["Timp de execuție","Durata de rulare a programului."],
+["Erori de sintaxă","Greșeli de scriere a codului."],
+["Competență digitală","Capacitatea de a folosi tehnologia eficient și sigur."],
+["Date structurate","Informații organizate într-un format clar."],
+["Date nestructurate","Informații neorganizate (imagini, texte libere)."],
+["Aplicație","Program creat pentru o anumită activitate."],
+["Instrucțiune","Un pas executabil dintr-un program."],
+["Ciclul de viață","Etapele de dezvoltare ale unui program."],
+["Testare","Verificarea funcționării corecte a programului."],
+["Actualizare","Îmbunătățirea sau corectarea unui program existent."],
+["Backup","Copie de siguranță a datelor."],
+["Bază de date","Loc unde se păstrează și organizează datele."],
+["Identificator","Numele dat unei variabile, funcții sau constante."],
+["Parametru","Valoare transmisă unei funcții."],
+["Return","Rezultatul întors de o funcție."],
+["Proiect","Rezultatul final al unui program sau activități."],
+["Blocuri logice","Elemente vizuale din Scratch ce definesc acțiuni."],
+["Eveniment la clic","Acțiune declanșată când se apasă un buton."],
+["Timp real","Procesare instantanee a datelor primite."],
+["IoT","Rețea de dispozitive conectate la internet (Internet of Things)."],
+["Microcontroler","Un mic calculator dintr-un dispozitiv electronic."],
+["Instrucțiune if","Bloc care verifică o condiție și decide acțiunea."],
+["Instrucțiune for","Buclă cu un număr fix de repetări."],
+["Instrucțiune while","Buclă care rulează cât timp o condiție e adevărată."],
+["Senzor de lumină","Detectează intensitatea luminii."],
+["Senzor de temperatură","Măsoară căldura sau frigul."],
+["Senzor de mișcare","Detectează deplasarea obiectelor."],
+["Imagine vectorială","Imagine definită prin forme geometrice."],
+["Imagine raster","Imagine compusă din pixeli."],
+["Caracter","Simbol unic: literă, cifră sau semn."],
+["Șir de caractere","Colecție de caractere."],
+["Programator","Persoană care scrie cod."],
+["Echipă de dezvoltare","Grupul care creează programe software."],
+["Inovație","Aplicarea unei idei noi în tehnologie."],
+["Inteligență artificială","Sisteme care pot învăța și lua decizii."],
+["Machine learning","Metodă prin care calculatorul învață din date."],
+["Model AI","Rețea de reguli și date care generează răspunsuri."],
+["Algoritm de sortare","Metodă de aranjare a datelor într-o ordine."],
+["Algoritm de căutare","Metodă de găsire a unui element într-o listă."],
+["Recursivitate","Când o funcție se apelează pe ea însăși."],
+["Optimizare","Îmbunătățirea performanței unui program."],
+["Interfață grafică","Ecranul vizual cu butoane și meniuri."],
+["Bara de instrumente","Set de butoane pentru comenzi rapide."],
+["Shortcut","Combinație de taste pentru o acțiune rapidă."],
+["Eveniment tastatură","Reacție la apăsarea unei taste."],
+["Eveniment mouse","Reacție la clic sau mișcare a mouse-ului."],
+["Aplicație web","Program care rulează în browser."],
+["Server web","Calculator care trimite pagini web utilizatorilor."],
+["HTML","Limbaj de creare a paginilor web."],
+["CSS","Limbaj care definește stilul unei pagini web."],
+["JavaScript","Limbaj care adaugă interactivitate pe pagini web."],
+["Frontend","Partea vizibilă a unei aplicații web."],
+["Backend","Partea care gestionează logica și datele serverului."],
+["API","Interfață ce permite comunicarea între aplicații."],
+["Token","Cheie digitală pentru identificare și acces."],
+["Criptare","Transformarea datelor pentru a le proteja."],
+["Securitate cibernetică","Protejarea sistemelor împotriva atacurilor online."],
+["Parolă","Cheie secretă pentru acces la un cont."],
+["Firewall","Sistem de filtrare a traficului de rețea."],
+["Browser cache","Spațiu unde se păstrează temporar datele vizualizate."],
+["Cookie","Mic fișier care reține preferințe pe site-uri."],
+["Ergonomie digitală","Modul sănătos de folosire a tehnologiei."],
+["Accesibilitate","Adaptarea conținutului digital pentru toți utilizatorii."],
+["Responsabilitate digitală","Folosirea conștientă și etică a tehnologiei."]
+];
+const colors=["--blue","--pink","--green","--yellow","--orange"];
+const grid=document.getElementById('grid');
+grid.innerHTML=terms.map((t,i)=>`<div class='card' style='background:var(${colors[i%colors.length]});'><h3>${t[0]}</h3><p>${t[1]}</p></div>`).join('');
+const q=document.getElementById('q');
+function norm(s){return(s||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase();}
+q.addEventListener('input',()=>{const v=norm(q.value);document.querySelectorAll('.card').forEach(c=>{const ok=!v||norm(c.textContent).includes(v);c.style.display=ok?'':'none';});});
+})();
+</script></body></html>
