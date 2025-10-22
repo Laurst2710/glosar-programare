@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="ro"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glosar programare (7–14 ani)</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;background:#f9fafb;margin:0;color:#1a202c}
+h1{text-align:center;margin-top:20px}
+input{width:90%;max-width:600px;display:block;margin:20px auto;padding:10px;font-size:16px;border:2px solid #ccc;border-radius:8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;max-width:1200px;margin:0 auto;padding:20px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:12px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card h3{margin:0 0 4px;color:#2563eb;font-size:16px}
+.card p{margin:0;font-size:14px;color:#374151}
+</style></head><body>
+<h1>Glosar programare (7–14 ani)</h1>
+<input id="q" placeholder="Caută un termen…">
+<div id="grid" class="grid"></div>
+<script>
+(function(){
+const terms=[];for(let i=1;i<=200;i++)terms.push(["Termen "+i,"Definiție simplă pentru elevi (7–14 ani)."]);
+const grid=document.getElementById('grid');
+grid.innerHTML=terms.map(([t,d])=>`<div class='card' data='${t.toLowerCase()} ${d.toLowerCase()}'><h3>${t}</h3><p>${d}</p></div>`).join('');
+const q=document.getElementById('q');
+function norm(s){return(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+q.addEventListener('input',()=>{const v=norm(q.value);
+document.querySelectorAll('.card').forEach(c=>{
+c.style.display=!v||norm(c.getAttribute('data')).includes(v)?'':'none';
+});});
+})();
+</script></body></html>
