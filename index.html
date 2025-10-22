@@ -1,0 +1,90 @@
+<!DOCTYPE html><html lang="ro"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Glosar programare (7–14 ani)</title>
+<style>
+:root{
+--bg:#f7fafc;--ink:#1a202c;--muted:#4a5568;
+--c1:#fefcbf;--c2:#c6f6d5;--c3:#bee3f8;--c4:#fbb6ce;--c5:#fbd38d;
+}
+body{font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);margin:0}
+h1{text-align:center;padding:20px;font-size:26px;margin:0;color:#2d3748}
+.search{display:flex;justify-content:center;margin:0 0 20px}
+.search input{width:90%;max-width:600px;padding:12px 14px;font-size:16px;border:2px solid #cbd5e0;border-radius:10px;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;max-width:1200px;margin:0 auto;padding:0 16px 40px}
+.card{border-radius:14px;padding:16px;box-shadow:0 2px 4px rgba(0,0,0,.08);transition:transform .1s ease;background:#fff}
+.card:hover{transform:scale(1.03)}
+.card h3{margin:0 0 6px;font-size:18px;color:#2b6cb0}
+.card p{margin:0;font-size:14px;color:var(--muted)}
+#noResults{text-align:center;color:#a0aec0;font-size:18px;margin-top:20px;display:none}
+</style></head><body>
+<h1>Glosar programare (7–14 ani)</h1>
+<div class="search"><input id="search" placeholder="Caută un termen sau o explicație..."></div>
+<div id="noResults">🔍 Niciun rezultat găsit</div>
+<div id="grid" class="grid"></div>
+<script>
+const terms=[ "Algoritm","Abstractizare","Variabilă","Buclă","Condiție","Eveniment","Funcție","Listă","Tablou","Operator",
+"Bug","Debugging","Program","Cod sursă","Compilator","Editor de cod","Structură de date","Intrare","Ieșire","Algoritm grafic",
+"Bloc de cod","Comentariu","Consolă","Scratch","Micro:bit","Python","C++","MakeCode","Flowgorithm","Decompunere",
+"Recunoaștere tipare","Date","Tastatură","Ecran","Senzor","LED","Buclă infinită","Secvență","RAM","Hard disk",
+"Server","Client","Internet","Site web","Browser","Cloud","Fișier","Folder","Software","Hardware",
+"Robot","Simulare","Joc video","Pixel","Rezoluție","Coordonate","Vector","Matrice","Operator logic","Operator aritmetic",
+"Operator relațional","Timp de execuție","Erori de sintaxă","Competență digitală","Date structurate","Date nestructurate","Aplicație","Instrucțiune","Ciclul de viață","Testare",
+"Actualizare","Backup","Bază de date","Identificator","Parametru","Return","Proiect","Blocuri logice","Eveniment la clic","Timp real",
+"IoT","Microcontroler","Instrucțiune if","Instrucțiune for","Instrucțiune while","Senzor de lumină","Senzor de temperatură","Senzor de mișcare","Imagine vectorială","Imagine raster",
+"Caracter","Șir de caractere","Programator","Echipă de dezvoltare","Inovație","Inteligență artificială","Machine learning","Model AI","Algoritm de sortare","Algoritm de căutare",
+"Recursivitate","Optimizare","Interfață grafică","Bara de instrumente","Shortcut","Eveniment tastatură","Eveniment mouse","Aplicație web","Server web","HTML",
+"CSS","JavaScript","Frontend","Backend","API","Token","Criptare","Securitate cibernetică","Parolă","Firewall",
+"Browser cache","Cookie","Ergonomie digitală","Accesibilitate","Responsabilitate digitală","Sintaxă","Compilare","Execuție","Cursor","Linie de cod",
+"Bit","Byte","Kilobyte","Megabyte","Gigabyte","Terabyte","Structură repetitivă","Structură alternativă","Structură secvențială","Pseudocod",
+"Diagramă de flux","Test logic","Instrucțiune switch","Bibliotecă","Modul","Import","Export","Parametru implicit","Returnare valoare","Instrucțiune break",
+"Instrucțiune continue","Inițializare","Incrementare","Decrementare","CMMDC","CMMMC","Divizor","Multiplu","Număr prim","Număr compus",
+"Medie aritmetică","Maxim","Minim","Sumă","Produs","Comparare","Convertire tip","Afișare","Input","Output" ];
+
+const defs=[ "Pași logici pentru rezolvarea unei probleme.","Alegerea detaliilor esențiale.","Cutiuță care păstrează valori.","Repetarea instrucțiunilor.",
+"Verificare adevărat/fals.","Acțiune ce pornește codul.","Set de instrucțiuni grupate.","Colecție ordonată de valori.","Structură de date indexată.","Simbol care efectuează o operație.",
+"Eroare în program.","Căutarea și corectarea erorilor.","Instrucțiuni pe care calculatorul le execută.","Textul scris de programator.","Transformă codul în program executabil.",
+"Aplicație pentru scrierea codului.","Organizarea datelor în memorie.","Informație primită de calculator.","Rezultatul produs de program.","Reprezentarea vizuală a algoritmului.",
+"Set de instrucțiuni grupate.","Text explicativ neexecutabil.","Fereastră pentru mesaje.","Limbaj vizual pentru copii.","Placă educațională de programare.","Limbaj prietenos pentru începători.",
+"Limbaj rapid și puternic.","Platformă pentru Micro:bit.","Aplicație pentru diagrame logice.","Împărțirea unei probleme mari în părți mici.",
+"Identificarea tiparelor comune.","Informații folosite în programe.","Dispozitiv pentru introducere date.","Afișează rezultatele.","Dispozitiv care detectează schimbări.","Diodă care luminează.",
+"Repetare fără oprire.","Ordinea instrucțiunilor.","Memorie temporară.","Depozitare permanentă.",
+"Calculator ce oferă servicii.","Calculator care primește servicii.","Rețea globală.","Pagină de informații online.","Aplicație de navigare web.","Spațiu online pentru stocare.",
+"Set de date.","Loc pentru fișiere.","Totalitatea programelor.","Componente fizice ale calculatorului.",
+"Dispozitiv programabil.","Reproducere digitală a unui proces.","Program interactiv.","Punct al imaginii.","Numărul de pixeli.","Poziție pe ecran.",
+"Listă de valori numerice.","Tabel bidimensional.","Simbol logic.","Simbol matematic.","Simbol de comparație.",
+"Timpul de rulare.","Greșeli de scriere a codului.","Capacitate digitală.","Date organizate.","Date neorganizate.",
+"Program dedicat unei activități.","Instrucțiune executabilă.","Etape de dezvoltare.","Verificare funcțională.",
+"Îmbunătățire de program.","Copie de siguranță.","Sistem de stocare date.","Nume dat unui element.","Valoare transmisă.","Rezultat returnat.",
+"Rezultatul final.","Blocuri vizuale.","Acțiune la clic.","Procesare instantanee.","Dispozitive conectate la internet.",
+"Calculator integrat.","Bloc condițional.","Buclă fixă.","Buclă condiționată.","Măsoară lumina.","Măsoară temperatura.","Detectează mișcare.","Imagine cu forme geometrice.","Imagine în pixeli.","Simbol individual.",
+"Șir de simboluri.","Persoană care scrie cod.","Grup de programatori.","Aplicarea ideilor noi.","Sisteme care învață.","Calculator care învață din date.","Model AI logic.","Metodă de aranjare a datelor.","Metodă de căutare.","Funcție care se apelează singură.",
+"Îmbunătățirea vitezei.","Interfață vizuală.","Set de comenzi rapide.","Taste rapide.","Reacție la tastă.","Reacție la clic.","Program în browser.","Calculator care trimite pagini.","Limbaj pentru pagini web.","Limbaj de stil.",
+"Limbaj pentru interactivitate.","Partea vizibilă a site-ului.","Logica serverului.","Legătură între aplicații.","Cheie digitală.","Protecția datelor.","Apărarea sistemelor online.","Cheie de acces.","Filtru de rețea.",
+"Memorie temporară web.","Fișier cu preferințe.","Folosire sănătoasă a tehnologiei.","Conținut accesibil.","Utilizare etică.","Reguli de scriere.","Transformare în cod mașină.","Rulare a programului.","Indicator de poziție.","Rând din program.",
+"Unitate minimă de informație.","8 biți.","1024 byte.","1024 KB.","1024 MB.","1024 GB.","Repetarea instrucțiunilor.","Decizie logică.","Ordine de execuție.","Descriere simplă a pașilor.",
+"Reprezentare grafică.","Verificare condiție.","Structură decizională.","Set de funcții.","Parte de cod reutilizabilă.","Importarea codului.","Export de funcții.","Valoare automată.","Întoarcerea rezultatului.","Oprire din buclă.",
+"Sări peste pas.","Atribuire valoare inițială.","Creștere cu 1.","Scădere cu 1.","Cel mai mare divizor comun.","Cel mai mic multiplu comun.","Număr care divide altul.","Rezultat al înmulțirii.","Număr cu doi divizori.","Număr cu mai mulți divizori.",
+"Media numerelor.","Cea mai mare valoare.","Cea mai mică valoare.","Suma valorilor.","Rezultatul înmulțirii.","Verificare a valorilor.","Schimbare de tip.","Afișarea rezultatului.","Citire de la tastatură.","Rezultat afișat." ];
+
+const colors=["var(--c1)","var(--c2)","var(--c3)","var(--c4)","var(--c5)"];
+const grid=document.getElementById("grid");
+terms.forEach((t,i)=>{
+ const c=document.createElement("div");
+ c.className="card";
+ c.style.background=colors[i%5];
+ c.innerHTML=`<h3>${t}</h3><p>${defs[i]}</p>`;
+ grid.appendChild(c);
+});
+const s=document.getElementById("search");
+const no=document.getElementById("noResults");
+s.addEventListener("input",()=>{
+ const v=s.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+ let visible=0;
+ document.querySelectorAll(".card").forEach(c=>{
+   const ok=c.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").includes(v);
+   c.style.display=ok?"":"none";
+   if(ok)visible++;
+ });
+ no.style.display=visible? "none":"block";
+});
+</script></body></html>
